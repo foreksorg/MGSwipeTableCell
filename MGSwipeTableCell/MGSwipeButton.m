@@ -92,31 +92,31 @@
 }
 
 -(void) centerIconOverTextWithSpacing: (CGFloat) spacing {
-  CGSize size = self.imageView.image.size;
-  
-  if ([UIDevice currentDevice].systemVersion.floatValue >= 9.0 && [self isRTLLocale]) {
-    self.titleEdgeInsets = UIEdgeInsetsMake(0.0,
-                                            0.0,
-                                            -(size.height + spacing),
-                                            -size.width);
-    size = [self.titleLabel.text sizeWithAttributes:@{ NSFontAttributeName: self.titleLabel.font }];
-    self.imageEdgeInsets = UIEdgeInsetsMake(-(size.height + spacing),
-                                            -size.width,
-                                            0.0,
-                                            0.0);
-  }
-  else
-  {
-    self.titleEdgeInsets = UIEdgeInsetsMake(0.0,
-                                            -size.width,
-                                            -(size.height + spacing),
-                                            0.0);
-    size = [self.titleLabel.text sizeWithAttributes:@{ NSFontAttributeName: self.titleLabel.font }];
-    self.imageEdgeInsets = UIEdgeInsetsMake(-(size.height + spacing),
-                                            0.0,
-                                            0.0,
-                                            -size.width);
-  }
+    CGSize size = self.imageView.image.size;
+    
+    if ([UIDevice currentDevice].systemVersion.floatValue >= 9.0 && [self isRTLLocale]) {
+        self.titleEdgeInsets = UIEdgeInsetsMake(0.0,
+                                                0.0,
+                                                -(size.height + spacing),
+                                                -size.width);
+        size = [self.titleLabel.text sizeWithAttributes:@{ NSFontAttributeName: self.titleLabel.font }];
+        self.imageEdgeInsets = UIEdgeInsetsMake(-(size.height + spacing),
+                                                -size.width,
+                                                0.0,
+                                                0.0);
+    }
+    else
+    {
+        self.titleEdgeInsets = UIEdgeInsetsMake(0.0,
+                                                -size.width,
+                                                -(size.height + spacing),
+                                                0.0);
+        size = [self.titleLabel.text sizeWithAttributes:@{ NSFontAttributeName: self.titleLabel.font }];
+        self.imageEdgeInsets = UIEdgeInsetsMake(-(size.height + spacing),
+                                                0.0,
+                                                0.0,
+                                                -size.width);
+    }
 }
 
 -(void) setPadding:(CGFloat) padding
@@ -132,6 +132,21 @@
     {
         CGRect frame = self.frame;
         frame.size.width = _buttonWidth;
+        self.frame = frame;
+    }
+    else
+    {
+        [self sizeToFit];
+    }
+}
+
+- (void)setButtonHeight:(CGFloat)buttonHeight
+{
+    _buttonHeight = buttonHeight;
+    if (_buttonHeight > 0)
+    {
+        CGRect frame = self.frame;
+        frame.size.height = _buttonHeight;
         self.frame = frame;
     }
     else
